@@ -25,10 +25,10 @@ public class Laptop {
     private String processor;
 
     @Column(nullable = false)
-    private int ram; // in GB
+    private int ram;
 
     @Column(nullable = false)
-    private String storage; // e.g., "512GB SSD"
+    private String storage;
 
     @Column(nullable = false)
     private double price;
@@ -62,7 +62,6 @@ public class Laptop {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
     public Long getLaptopId() {
         return laptopId;
     }
