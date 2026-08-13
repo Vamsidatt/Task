@@ -3,61 +3,49 @@ package com.klef.soa.controller;
 import com.klef.soa.entity.Laptop;
 import com.klef.soa.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/laptops")
+@RequestMapping("/laptop")
 public class LaptopController {
 
     @Autowired
     private LaptopService laptopService;
 
-    // Insert
-    @PostMapping
-    public ResponseEntity<Laptop> addLaptop(@RequestBody Laptop laptop) {
-        Laptop createdLaptop = laptopService.addLaptop(laptop);
-        return new ResponseEntity<>(createdLaptop, HttpStatus.CREATED);
+    @PutMapping("/update/{id}")
+    public Laptop updateLaptop(@PathVariable("id") Long laptopId, @RequestBody Laptop laptop) {
+        return laptopService.updateLaptop(laptopId, laptop);
     }
 
-    // Update
-    @PutMapping("/{id}")
-    public ResponseEntity<Laptop> updateLaptop(@PathVariable("id") Long laptopId, @RequestBody Laptop laptop) {
-        Laptop updatedLaptop = laptopService.updateLaptop(laptopId, laptop);
-        return ResponseEntity.ok(updatedLaptop);
+    @PostMapping("/add")
+    public Laptop addLaptop(@RequestBody Laptop laptop) {
+        return laptopService.addLaptop(laptop);
     }
 
-    // Delete
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteLaptop(@PathVariable("id") Long laptopId) {
-        String message = laptopService.deleteLaptop(laptopId);
-        return ResponseEntity.ok(message);
+    @GetMapping("/displayall")
+    public List<Laptop> getAllLaptops() {
+        return laptopService.getAllLaptops();
     }
 
-    // Display All
-    @GetMapping
-    public ResponseEntity<List<Laptop>> getAllLaptops() {
-        return ResponseEntity.ok(laptopService.getAllLaptops());
+    @GetMapping("/display/{id}")
+    public Laptop getLaptopById(@PathVariable("id") Long laptopId) {
+        return laptopService.getLaptopById(laptopId);
     }
 
-    // Display By ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Laptop> getLaptopById(@PathVariable("id") Long laptopId) {
-        return ResponseEntity.ok(laptopService.getLaptopById(laptopId));
+    @GetMapping("/displaybybrand/{brand}")
+    public List<Laptop> getLaptopsByBrand(@PathVariable("brand") String brand) {
+        return laptopService.getLaptopsByBrand(brand);
     }
 
-    // Find By Brand
-    @GetMapping("/brand/{brand}")
-    public ResponseEntity<List<Laptop>> getLaptopsByBrand(@PathVariable("brand") String brand) {
-        return ResponseEntity.ok(laptopService.getLaptopsByBrand(brand));
+    @GetMapping("/displaybyprocessor/{processor}")
+    public List<Laptop> getLaptopsByProcessor(@PathVariable("processor") String processor) {
+        return laptopService.getLaptopsByProcessor(processor);
     }
 
-    // Find By Processor
-    @GetMapping("/processor/{processor}")
-    public ResponseEntity<List<Laptop>> getLaptopsByProcessor(@PathVariable("processor") String processor) {
-        return ResponseEntity.ok(laptopService.getLaptopsByProcessor(processor));
+    @DeleteMapping("/delete/{id}")
+    public String deleteLaptop(@PathVariable("id") Long laptopId) {
+        return laptopService.deleteLaptop(laptopId);
     }
 }

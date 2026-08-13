@@ -16,9 +16,8 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Laptop Service API")
                         .version("1.0")
-                        .description("REST API Documentation for Laptop Microservice")
+                        .description("REST API Documentation")
                         .contact(new Contact()
-                                .name("KLUniversity")
-                                .email("demo@example.com")));
+                                .name("KLUniversity")));
     }
 }
